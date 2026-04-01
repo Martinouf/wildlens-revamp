@@ -1,73 +1,124 @@
-# Welcome to your Lovable project
+# WildLens
 
-## Project info
+Application web de découverte et d'identification d'espèces sauvages à partir d'empreintes animales.
 
-**URL**: https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID
+## Fonctionnalités
 
-## How can I edit this code?
+- **Explorer** — Parcourir un catalogue d'espèces sauvages avec leurs informations (nom latin, famille, habitat, anecdotes)
+- **Identifier** — Uploader une photo d'empreinte animale pour l'identifier (drag & drop ou sélection de fichier)
+- **Découvrir** — Consulter la fiche détaillée de chaque espèce
 
-There are several ways of editing your application.
+## Stack technique
 
-**Use Lovable**
+| Outil | Rôle |
+|---|---|
+| [Vite](https://vitejs.dev/) + [React 18](https://react.dev/) | Framework front-end |
+| [TypeScript](https://www.typescriptlang.org/) | Typage statique |
+| [Tailwind CSS](https://tailwindcss.com/) | Styles utilitaires |
+| [shadcn/ui](https://ui.shadcn.com/) + [Radix UI](https://www.radix-ui.com/) | Composants UI accessibles |
+| [React Router v6](https://reactrouter.com/) | Routing côté client |
+| [TanStack Query](https://tanstack.com/query) | Gestion des données asynchrones |
+| [React Hook Form](https://react-hook-form.com/) + [Zod](https://zod.dev/) | Formulaires et validation |
+| [Vitest](https://vitest.dev/) | Tests unitaires |
+| [Playwright](https://playwright.dev/) | Tests end-to-end |
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and start prompting.
+## Structure du projet
 
-Changes made via Lovable will be committed automatically to this repo.
+```
+src/
+├── components/       # Composants réutilisables (Layout, Navbar, Footer...)
+│   └── ui/           # Composants shadcn/ui
+├── data/             # Données statiques (catalogue d'espèces)
+├── hooks/            # Hooks React personnalisés
+├── lib/              # Utilitaires (cn, etc.)
+├── pages/            # Pages de l'application
+│   ├── Index.tsx         # Page d'accueil
+│   ├── Species.tsx       # Liste des espèces
+│   ├── SpeciesDetail.tsx # Fiche détaillée d'une espèce
+│   ├── Upload.tsx        # Upload et identification d'empreinte
+│   └── NotFound.tsx      # Page 404
+└── main.tsx          # Point d'entrée
+```
 
-**Use your preferred IDE**
+## Routes
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+| Route | Description |
+|---|---|
+| `/` | Page d'accueil |
+| `/species` | Catalogue des espèces |
+| `/species/:id` | Fiche détaillée d'une espèce |
+| `/upload` | Identifier une empreinte |
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+## Prérequis
 
-Follow these steps:
+- [Node.js](https://nodejs.org/) >= 18
+- npm >= 9 (ou bun)
+
+## Installation et démarrage
 
 ```sh
-# Step 1: Clone the repository using the project's Git URL.
+# Cloner le dépôt
 git clone <YOUR_GIT_URL>
+cd wildlens-revamp
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+# Installer les dépendances
+npm install
 
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
+# Lancer le serveur de développement (http://localhost:8080)
 npm run dev
 ```
 
-**Edit a file directly in GitHub**
+## Scripts disponibles
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+```sh
+npm run dev          # Serveur de développement avec HMR (port 8080)
+npm run build        # Build de production dans /dist
+npm run build:dev    # Build en mode développement
+npm run preview      # Prévisualiser le build de production localement
+npm run lint         # Linter ESLint
+npm run test         # Tests unitaires (Vitest, mode run)
+npm run test:watch   # Tests unitaires en mode watch
+```
 
-**Use GitHub Codespaces**
+## Tests
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+Les tests unitaires utilisent **Vitest** et **Testing Library** :
 
-## What technologies are used for this project?
+```sh
+npm run test
+```
 
-This project is built with:
+Les tests end-to-end utilisent **Playwright** :
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+```sh
+npx playwright test
+```
 
-## How can I deploy this project?
+## Build et déploiement
 
-Simply open [Lovable](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and click on Share -> Publish.
+```sh
+npm run build
+```
 
-## Can I connect a custom domain to my Lovable project?
+Le dossier `dist/` généré est un site statique déployable sur n'importe quel hébergeur (Vercel, Netlify, GitHub Pages, etc.).
 
-Yes, you can!
+Exemple avec Vercel CLI :
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+```sh
+npx vercel --prod
+```
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+## Alias de chemin
+
+L'alias `@` pointe vers `src/` :
+
+```ts
+import Layout from "@/components/Layout";
+import { speciesData } from "@/data/species";
+```
+
+## Contribution
+
+1. Créer une branche à partir de `main` : `git checkout -b feat/ma-fonctionnalite`
+2. Committer les changements : `git commit -m "feat: description"`
+3. Ouvrir une Pull Request vers `main`
